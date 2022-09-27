@@ -28,4 +28,28 @@ public class FilesController : ControllerBase
 
         return File(content,type ,file);
     }
+
+    [HttpPost]
+    public ActionResult UploadFiles([FromForm]IFormFile file)
+    {
+        if (file != null || file.Length > 0)
+        { 
+            var filePath = $"{Directory.GetCurrentDirectory()}/Notes/{file.FileName}";
+
+            var fileExist = System.IO.File.Exists(filePath);
+            if (fileExist)
+            {
+                return Conflict();
+            }
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return Ok();
+        }
+
+        return BadRequest();
+    }
 }

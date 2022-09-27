@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Notes\" />
       <Folder Include="wwwroot\" />
     </ItemGroup>
 
