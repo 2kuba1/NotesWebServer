@@ -1,0 +1,45 @@
+Indeksy
+
+Wadą stosowania jest to, że zajmują przestrzeń an dysku, muszą byc na bieżąco aktualizowane, a każde wstawienie, usunięcie lub zaktualizowanie danych w tabeli wiąże sie z aktualizacją wszystkich zdefiniowanych indeksów.
+
+
+indeksowanie kolumny oznacza, że wewnątrz bazy powstaje specjalna struktura porządkująca dane w kolumnie, co przyspiesz wykonywanie wielu operacjiL
+
+- sortowanie
+- przeszukiwanie
+
+
+Tworzenie indeksów dla wszystkich kolumn używanych w zapytaniu. Prowadzi do niepotrzebnej utraty miejsca na dysku oraz opóźnień w działaniu MySQL, który to traci czas na ustalenie, którego indeksu należy użyć. praca z bazą danych polegfa na znalezieniu złotego środka umożliwiającego uzyskanie szybkich odpowiedzi na zapytania przy uzyciu optymalnej ilości indeksów.
+
+Najczęściej spotyka sie indeksy zakładane na pojedyncze kolumny (indeksy proste). Utworzenie indeksu powoduje przekopiowanie części danych z kolumny w sposób umożliwiający szybkie przeglądanie wierszy odpowiadających wartością w kolumnie.
+
+MySQL i inne systemy baz danych mogą tworzyć również indeksy złożone (obejmują kilka kolumn jednocześnie).
+
+Wszystkie typy danych MySQL mogą byc indekksowane.
+
+Indeks można utworzyc za pomocą instrukcji CREATE INDEX.
+CREATE INDEX nazwa_indeksu ON nazwa_tabeli (kolumny);
+
+Przykład:
+CREATE INDEX indeks ON osoby (nazwisko);
+
+kilka indeksów w jednej tabeli:
+
+CREATE INDEX indeks_imie ON osoby (imie)
+
+
+Indeks złożony z kilku kolumn:
+
+CREATE INDEX indeks ON osoby (imie, nazwisko);
+
+Indeks może się składać maksymalnie z 16 kolumn.
+
+
+
+W celu wyświetlenia indeksów znajdujących się w danej tabeli używanych polecenia SHOW INDEX.
+
+
+SHOW INDEX FROM nazwa_tabeli FROM nazwa_bazy
+
+
+DROP INDEX nazwa_indeksu ON nazwa_tabeli - usuwa index

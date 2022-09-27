@@ -1,15 +1,17 @@
 ﻿using System.Runtime.Intrinsics.X86;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
 namespace NotesWebServer.Controllers;
 
 [ApiController]
-[Route("/api/files")]
+[Route("/files")]
 public class FilesController : ControllerBase
 {
     [HttpGet]
-    public ActionResult GetFile([FromQuery] string file)
+    [Authorize(Roles = "User,Admin")]
+    public ActionResult<Task<FileContentResult>> GetFileAsync([FromQuery] string file)
     {
         var files = Directory.GetCurrentDirectory();
         var filePath = $"{files}/Notes/{file}";
@@ -30,7 +32,8 @@ public class FilesController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult UploadFiles([FromForm]IFormFile file)
+    [Authorize(Roles = "User,Admin")]
+    public ActionResult<Task> UploadFilesAsync([FromForm]IFormFile file)
     {
         if (file != null || file.Length > 0)
         { 
