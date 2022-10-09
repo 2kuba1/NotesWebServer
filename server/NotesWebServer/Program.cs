@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using NotesWebServer.Entities;
 using NotesWebServer.Services;
+using System;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,9 +39,24 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddCors(setup =>
+{
+    setup.AddPolicy("ui", builder =>
+    {
+        builder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin();
+        //.WithOrigins(
+        //    "http://localhost:8080",
+        //    "http://localhost:4200",
+        //    "http://localhost:3000",
+        //    "https://benevolent-gumption-00ecff.netlify.app/");
+    });
+});
 
 var app = builder.Build();
 app.UseStaticFiles();
+app.UseCors("ui");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

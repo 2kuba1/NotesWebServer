@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +23,18 @@ namespace NotesWebServer.Controllers
             _service = service;
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("/api/account/getString")]
+        public ActionResult<string> GetString()
+        {
+            return Ok("Nigger");
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [Route("/api/account/login")]
-        public ActionResult<Task<string>> Login([FromBody]LoginDto user)
+        public ActionResult<Task<string>> Login([FromBody] LoginDto user)
         {
             var jwtToken = _service.Login(user);
 
@@ -35,7 +44,7 @@ namespace NotesWebServer.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("/api/account/register")]
-        public ActionResult<Task> Register([FromBody]CreateUserDto user)
+        public ActionResult<Task> Register([FromBody] CreateUserDto user)
         {
             _service.Register(user);
             return NoContent();

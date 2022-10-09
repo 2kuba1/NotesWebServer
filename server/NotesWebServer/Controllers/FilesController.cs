@@ -9,6 +9,7 @@ namespace NotesWebServer.Controllers;
 [Route("/files")]
 public class FilesController : ControllerBase
 {
+
     [HttpGet]
     [Authorize(Roles = "User,Admin")]
     public ActionResult<Task<FileContentResult>> GetFileAsync([FromQuery] string file)
@@ -28,15 +29,15 @@ public class FilesController : ControllerBase
         var contentProvider = new FileExtensionContentTypeProvider();
         contentProvider.TryGetContentType(file, out string type);
 
-        return File(content,type ,file);
+        return File(content, type, file);
     }
 
     [HttpPost]
     [Authorize(Roles = "User,Admin")]
-    public ActionResult<Task> UploadFilesAsync([FromForm]IFormFile file)
+    public ActionResult<Task> UploadFilesAsync([FromForm] IFormFile file)
     {
         if (file != null || file.Length > 0)
-        { 
+        {
             var filePath = $"{Directory.GetCurrentDirectory()}/Notes/{file.FileName}";
 
             var fileExist = System.IO.File.Exists(filePath);
