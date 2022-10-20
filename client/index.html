@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <title>Strona główna!</title>
+    <title>Strona Glowna</title>
 </head>
 <body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <div id="app">{{ tittle }}</div>
+
     <script>
-         fetch("https://localhost:7172/api/account/getString")
-   .then(response => response.text())
-   .then((response) => {
-       console.log(response)
-   })
-   .catch(err => console.log(err))
+        const { createApp } = Vue;
+
+        createApp({
+            data(){
+                return{
+                    tittle: 'Hello vue!'
+                }
+            }
+        }).mount('#app');
     </script>
-    <h1>Witaj na stronie do pobierania i wysyłania plików na serwer!</h1>
-    
-    <div id="box">
-        <a id ="login" href="">Zaloguj się</a>
-    </div>    
 </body>
 </html>

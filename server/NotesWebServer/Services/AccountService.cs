@@ -83,7 +83,7 @@ namespace NotesWebServer.Services
             var newUser = new User()
             {
                 Username = user.Username,
-                RoleId = user.RoleId
+                RoleId = 1
             };
 
             var hashedPassword = _passwordHasher.HashPassword(newUser, user.HashedPassword);

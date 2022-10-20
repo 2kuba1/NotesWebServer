@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IFilesService, FilesService>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -58,11 +59,12 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseCors("ui");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Notes Web Server");
+});
 
 app.UseAuthentication();
 app.UseAuthorization();

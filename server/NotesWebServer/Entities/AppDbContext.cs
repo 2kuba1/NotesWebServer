@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<Files> Files { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
