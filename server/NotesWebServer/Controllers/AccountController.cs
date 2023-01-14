@@ -23,14 +23,6 @@ namespace NotesWebServer.Controllers
             _service = service;
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("/api/account/getString")]
-        public ActionResult<string> GetString()
-        {
-            return Ok("Nigger");
-        }
-
         [HttpPost]
         [AllowAnonymous]
         [Route("/api/account/login")]
